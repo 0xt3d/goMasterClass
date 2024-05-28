@@ -37,4 +37,13 @@ func DatabaseConnection() {
        log.Fatal("Error connecting to the database...", err)
    }
    fmt.Println("Database connection successful...")
+
+   func FetchData() {
+      var books []Book
+      DB.Find(&books)
+      for _, book := range books {
+          fmt.Println(book.Title, book.Author)
+      }
+  }
+  
 }
