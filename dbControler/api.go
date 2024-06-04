@@ -1,26 +1,22 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
-    "io/ioutil"
     "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "net/http"
 )
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
-}
-// func main() {
-//     http.HandleFunc("/hello", helloHandler)
 
-//     fmt.Println("Starting server at port 8080")
-//     if err := http.ListenAndServe(":8080", nil); err != nil {
-//         panic(err)
-//     }
-// }
 type Message struct {
     Text string `json:"text"`
 }
 
+// helloHandler is the HTTP handler for the /hello GET endpoint
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
+}
+
+// postMessageHandler is the HTTP handler for the /messages POST endpoint
 func postMessageHandler(w http.ResponseWriter, r *http.Request) {
     // Only accept POST requests
     if r.Method != http.MethodPost {
@@ -49,7 +45,12 @@ func postMessageHandler(w http.ResponseWriter, r *http.Request) {
     // Respond to the request
     fmt.Fprintf(w, "Message received")
 }
+
 func main() {
+    // Tell the HTTP server to use helloHandler for the /hello GET endpoint
+    http.HandleFunc("/hello", helloHandler)
+
+    // Tell the HTTP server to use postMessageHandler for the /messages POST endpoint
     http.HandleFunc("/messages", postMessageHandler)
 
     fmt.Println("Starting server at port 8080")
