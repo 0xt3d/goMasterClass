@@ -46,12 +46,24 @@ func postMessageHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "Message received")
 }
 
-func main() {
-    // Tell the HTTP server to use helloHandler for the /hello GET endpoint
-    http.HandleFunc("/hello", helloHandler)
+func deleteMessageHandler(w http.ResponseWriter, r *http.Request) {
+    // Only accept DELETE requests
+    if r.Method != http.MethodDelete {
+        http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+        return
+    }
 
-    // Tell the HTTP server to use postMessageHandler for the /messages POST endpoint
+    // TODO: Delete the message from your database
+
+    // Respond to the request
+    fmt.Fprintf(w, "Message deleted")
+}
+
+
+func main() {
+    http.HandleFunc("/hello", helloHandler)
     http.HandleFunc("/messages", postMessageHandler)
+    http.HandleFunc("/messages", deleteMessageHandler)
 
     fmt.Println("Starting server at port 8080")
     if err := http.ListenAndServe(":8080", nil); err != nil {
