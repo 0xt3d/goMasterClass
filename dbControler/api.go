@@ -13,7 +13,8 @@ type Message struct {
 
 // helloHandler is the HTTP handler for the /hello GET endpoint
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
+    fmt.Fprintf(w, "Hello, you've requested: %s\n %s", r.URL.Path)
+    return
 }
 
 // postMessageHandler is the HTTP handler for the /messages POST endpoint
@@ -63,7 +64,7 @@ func deleteMessageHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
     http.HandleFunc("/hello", helloHandler)
     http.HandleFunc("/messages", postMessageHandler)
-    http.HandleFunc("/messages", deleteMessageHandler)
+    http.HandleFunc("/deletemessages", deleteMessageHandler)
 
     fmt.Println("Starting server at port 8080")
     if err := http.ListenAndServe(":8080", nil); err != nil {
