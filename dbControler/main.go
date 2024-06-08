@@ -1,40 +1,48 @@
 package main
- 
+
 import (
-   "fmt"
-   "log"
- 
-   "gorm.io/driver/postgres"
-   "gorm.io/gorm"
+	"database/sql"
+	"fmt"
+	"log"
+
+	_ "github.com/lib/pq"
 )
- 
-var DB *gorm.DB
-var err error
- 
-type Book struct {
-   gorm.Model
-   Title  string `json:"title"`
-   Author string `json:"author"`
-}
- 
+
 func main() {
-   host := "localhost"
-   port := "5432"
-   dbName := "postgres"
-   dbUser := "postgres"
-   password := "password"
-   dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
-       host,
-       port,
-       dbUser,
-       dbName,
-       password,
-   )
- 
-   DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-   DB.AutoMigrate(Book{})
-   if err != nil {
-       log.Fatal("Error connecting to the database...", err)
-   }
-   fmt.Println("Database connection successful...")
+	// Connection string for your PostgreSQL database
+	connStr := "user=your_user dbname=your_db sslmode=disable password=your_password host=localhost port=5432"
+
+	// Open a connection to the database
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Query the database
+	rows, err := db.Query("SELECT * FROM your_table")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Iterate through the rows and print them out
+	for rows.Next() {
+		var id int
+		var name string
+		// Add more variables here to match your table's columns
+
+		err := rows.Scan(&id, &name /* Add more variables here */)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println(id, name /* Print out more variables here */)
+	}
+
+	// Check for any errors that happened during the iteration
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
