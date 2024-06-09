@@ -20,7 +20,7 @@ func main() {
 	defer db.Close()
 
 	// Query the database
-	rows, err := db.Query("SELECT * FROM your_table")
+	rows, err := db.Query("SELECT * FROM ")
 	if err != nil {
 		log.Fatal(err)
 	}
