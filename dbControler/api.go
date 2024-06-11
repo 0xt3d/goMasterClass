@@ -5,6 +5,7 @@ import (
     "fmt"
     "io/ioutil"
     "net/http"
+    "gin"
 )
 
 type Message struct {
@@ -27,6 +28,10 @@ var albums = []album{
 func helloHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "Hello, you've requested: %s\n %s", r.URL.Path)
     return
+}
+// getAlbums responds with the list of all albums as JSON.
+func getAlbums(c *gin.Context) {
+    c.IndentedJSON(http.StatusOK, albums)
 }
 
 // postMessageHandler is the HTTP handler for the /messages POST endpoint
@@ -77,7 +82,7 @@ func main() {
     http.HandleFunc("/hello", helloHandler)
     http.HandleFunc("/messages", postMessageHandler)
     http.HandleFunc("/deletemessages", deleteMessageHandler)
-
+    http.HandleFunc("/album", getAlbums)
     fmt.Println("Starting server at port 8080")
     if err := http.ListenAndServe(":8080", nil); err != nil {
         panic(err)
