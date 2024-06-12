@@ -5,7 +5,7 @@ import (
     "fmt"
     "io/ioutil"
     "net/http"
-    "gin"
+    "github.com/gin-gonic/gin"
 )
 
 type Message struct {
@@ -79,12 +79,17 @@ func deleteMessageHandler(w http.ResponseWriter, r *http.Request) {
 
 
 func main() {
-    http.HandleFunc("/hello", helloHandler)
-    http.HandleFunc("/messages", postMessageHandler)
-    http.HandleFunc("/deletemessages", deleteMessageHandler)
-    http.HandleFunc("/album", getAlbums)
-    fmt.Println("Starting server at port 8080")
-    if err := http.ListenAndServe(":8080", nil); err != nil {
-        panic(err)
-    }
+    // http.HandleFunc("/hello", helloHandler)
+    // http.HandleFunc("/messages", postMessageHandler)
+    // http.HandleFunc("/deletemessages", deleteMessageHandler)
+    // http.HandleFunc("/album", getAlbums)
+    // fmt.Println("Starting server at port 8080")
+
+    // if err := http.ListenAndServe(":8080", nil); err != nil {
+    //     panic(err)
+    // }
+    router := gin.Default()
+    router.GET("/albums", getAlbums)
+
+    router.Run("localhost:8080")
 }
