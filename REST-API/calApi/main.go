@@ -1,18 +1,23 @@
-package calapi
+package main
 
 import(
-	"fmt"
-	"net/http"
     "github.com/gin-gonic/gin"
+    "strconv"
 )
 
-func add(c *gin.Context) {
-    // Call BindJSON to bind the received JSON to
-    if err := c.BindJSON(&add); err != nil {
-        return 
-    }
+func main(){
+    router := gin.Default()
 
-    // Add the new album to the slice.
-    albums = append(albums, newAlbum)
-    c.IndentedJSON(http.StatusCreated, newAlbum)
+    router.GET("/add/:num1/:num2", func(ctx *gin.Context) {
+        num1, _ := strconv.ParseFloat(ctx.Param("num1"), 64)
+        num2, _ := strconv.ParseFloat(ctx.Param("num2"), 64)
+        ctx.JSON(200, gin.H{"result": num1 + num2})
+    })
+
+    router.GET("/sub/:num1/:num2", func(ctx *gin.Context) {
+        num1, _ := strconv.ParseFloat(ctx.Param("num1"), 64)
+        num2, _ := strconv.ParseFloat(ctx.Param("num2"), 64)
+        ctx.JSON(200, gin.H{"result": num1 - num2})
+    })
+    router.Run(":8080")
 }
