@@ -30,6 +30,10 @@ func main(){
         num1, _ := strconv.ParseFloat(ctx.Param("num1"), 64)
         num2, _ := strconv.ParseFloat(ctx.Param("num2"), 64)
         ctx.JSON(200, gin.H{"result": num1 / num2})
+
+        if num2 := 0 {
+            
+        }
     })
     router.Run(":8080")
 }
