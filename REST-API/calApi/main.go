@@ -29,7 +29,14 @@ func main(){
     router.GET("/div/:num1/:num2", func(ctx *gin.Context) {
         num1, _ := strconv.ParseFloat(ctx.Param("num1"), 64)
         num2, _ := strconv.ParseFloat(ctx.Param("num2"), 64)
+       if num2 == 0{
+        ctx.JSON(200, gin.H{"result: Can not divide"})
+       }
+       else{
         ctx.JSON(200, gin.H{"result": num1 / num2})
+       }
     })
+
+
     router.Run(":8080")
 }
