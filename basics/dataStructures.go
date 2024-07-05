@@ -15,6 +15,12 @@ func main()  {
 		//4
 		//5
 	}
+
+	array[4] = 100
+	fmt.Println("Updating Index of 4:", array)
+	fmt.Println("getting lenth of array using len(array) function", len(array))
+	
+
 	
 	
 
