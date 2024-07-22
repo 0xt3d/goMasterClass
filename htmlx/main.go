@@ -9,7 +9,7 @@ func main()  {
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		c.Type("html")
-		return c.SendString("Hello, World")
+		return c.SendString("Hello, Aditya")
 	})
 	app.Listen(":3030")
 }
