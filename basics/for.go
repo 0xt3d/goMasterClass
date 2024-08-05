@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	i := 0 //this is intialtion and declaration in one go
-	var a = 10;
+	var a = 10 int;
 	for i <= 3 {
 		fmt.Println(i)
 		i = i + 1
