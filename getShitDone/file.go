@@ -6,6 +6,13 @@ import(
 	"os"
 )
 
+func check(e error)  {
+if e!= nil{
+    panic(e)
+}
+    
+}
+
 func main() {
 	d1 := []byte("hello\ngo\n")
     err := os.WriteFile("/tmp/dat1", d1, 0644)
