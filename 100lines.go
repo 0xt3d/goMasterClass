@@ -1,3 +1,6 @@
+package 100lines
+
+
 var (
 	a bool
 	b float32
@@ -27,4 +30,3 @@ var (
 		avg = total / float64(len(x))
 	}
 	return
-}
