@@ -145,7 +145,7 @@ func listPorts(c *gin.Context) {
 		return
 	}
 
-	containers, err := dockerClient.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	var containers, err := dockerClient.ContainerList(context.Background(), types.ContainerListOptions(All: true))
 	if err != nil {
 		c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to list containers: %v", err))
 		return
