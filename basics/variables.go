@@ -22,4 +22,4 @@ func main() {
 	 b, c := true, 69.420
 	d := "String, in Go"
 	fmt.Println(a,b,c,d)
-}asdas
+}
